@@ -1,14 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 import { IApartment } from "./apartment.interface";
 
-
-
-//This Schema valid for apartment and homes
+// This Schema is valid for apartment and homes
 
 const apartmentSchema = new Schema<IApartment>(
   {
     // STEP 1: BASIC DETAILS
-   
+
     listingType: {
       type: String,
       enum: ["Sale", "Rent"],
@@ -55,6 +53,34 @@ const apartmentSchema = new Schema<IApartment>(
       type: String,
       required: true,
       trim: true,
+    },
+
+    // LISTING STATUS
+    status: {
+      type: String,
+      enum: [
+        "Draft",
+        "Pending Verification",
+        "Active",
+        "Rejected",
+        "Sold",
+        "Rented",
+        "Expired",
+        "Withdrawn",
+      ],
+      default: "Draft",
+    },
+
+    // VERIFICATION STATUS
+    verificationStatus: {
+      type: String,
+      enum: [
+        "Pending",
+        "Verified",
+        "Rejected",
+        "Needs Review",
+      ],
+      default: "Pending",
     },
 
     // STEP 2: LOCATION
@@ -203,7 +229,7 @@ const apartmentSchema = new Schema<IApartment>(
     },
 
     // STEP 4: PRICING
-   
+
     pricing: {
       askingPrice: {
         type: Number,
@@ -313,9 +339,7 @@ const apartmentSchema = new Schema<IApartment>(
       },
     },
 
-   
     // STEP 6: AMENITIES
-   
 
     amenities: {
       common: {
@@ -348,18 +372,14 @@ const apartmentSchema = new Schema<IApartment>(
       },
     },
 
-   
     // STEP 7: INTERIOR FEATURES
-   
 
     interiorFeatures: {
       type: [String],
       default: [],
     },
 
-   
     // STEP 8: MEDIA
-   
 
     media: {
       images: {
@@ -388,9 +408,7 @@ const apartmentSchema = new Schema<IApartment>(
       },
     },
 
-   
     // STEP 9: LEGAL
-   
 
     legalVerification: {
       saleDeedOrAgreement: {
@@ -401,20 +419,12 @@ const apartmentSchema = new Schema<IApartment>(
         type: String,
       },
 
-      verificationStatus: {
-        type: String,
-        enum: ["Pending", "Verified", "Rejected"],
-        default: "Pending",
-      },
-
       verifiedAt: {
         type: Date,
       },
     },
 
-   
     // STEP 10: SELLER
-   
 
     seller: {
       listingAs: {
@@ -454,4 +464,7 @@ const apartmentSchema = new Schema<IApartment>(
   }
 );
 
-export const ApartmentModel = mongoose.model<IApartment>("Apartment", apartmentSchema);
+export const ApartmentModel = mongoose.model<IApartment>(
+  "Apartment",
+  apartmentSchema
+);
