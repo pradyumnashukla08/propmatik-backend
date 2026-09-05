@@ -7,10 +7,10 @@ import morgan from "morgan";
 
 import DBConnect from "./config/db.config";
 import UserRouter from "./modules/user/user.routes";
-import PloatNLandRouter from "./modules/plotNland/ploatNland.router"
+import PloatNLandRouter from "./modules/plotNland/ploatNland.routes"
 import globalRateLimiter from "./middleware/rateLimiter";
-import ApartmentRouter from "./modules/apartment/apartment.route";
-import NotificationRouter from "./modules/notification/notification.router";
+import ApartmentRouter from "./modules/apartment/apartment.routes";
+import NotificationRouter from "./modules/notification/notification.routes";
 
 const app = express();
 
