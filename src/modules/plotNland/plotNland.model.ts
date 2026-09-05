@@ -559,6 +559,11 @@ const plotNLandSchema = new Schema<IPlotNLand>(
         default: [],
       },
 
+      propertyCards: {
+        type: [String],
+        default: [],
+      },
+
       documents: {
         type: [String],
         default: [],
@@ -598,6 +603,36 @@ const plotNLandSchema = new Schema<IPlotNLand>(
         enum: ["Phone", "Email"],
         default: "Phone",
       },
+    },
+    
+    // Listing Status
+    status: {
+      type: String,
+      enum: [
+        "Draft",
+        "Pending Verification",
+        "Active",
+        "Rejected",
+        "Sold",
+        "Leased",
+        "Expired",
+        "Withdrawn",
+      ],
+      default: "Draft",
+      required: true,
+    },
+
+    // Verification Status
+    verificationStatus: {
+      type: String,
+      enum: [
+        "Pending",
+        "Verified",
+        "Rejected",
+        "Needs Review",
+      ],
+      default: "Pending",
+      required: true,
     },
   },
   {

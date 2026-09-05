@@ -7,6 +7,7 @@ import morgan from "morgan";
 
 import DBConnect from "./config/db.config";
 import UserRouter from "./modules/user/user.routes";
+import PloatNLandRouter from "./modules/plotNland/ploatNland.router"
 import globalRateLimiter from "./middleware/rateLimiter";
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(globalRateLimiter);
 
 app.use("/user", UserRouter);
+app.use('/plot-land', PloatNLandRouter)
 
 app.get("/", (_req, res) => {
   res.status(200).json({

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { IApartment } from "../interfaces/apartment.interface";
+import { IApartment } from "./apartment.interface";
+
 
 
 //This Schema valid for apartment and homes
