@@ -10,6 +10,7 @@ import UserRouter from "./modules/user/user.routes";
 import PloatNLandRouter from "./modules/plotNland/ploatNland.router"
 import globalRateLimiter from "./middleware/rateLimiter";
 import ApartmentRouter from "./modules/apartment/apartment.route";
+import NotificationRouter from "./modules/notification/notification.router";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(globalRateLimiter);
 app.use("/user", UserRouter);
 app.use('/plot-land', PloatNLandRouter)
 app.use('/apartment', ApartmentRouter)
+app.use("/notifications", NotificationRouter);
 
 app.get("/", (_req, res) => {
   res.status(200).json({
