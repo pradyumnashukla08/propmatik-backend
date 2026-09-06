@@ -11,6 +11,13 @@ import PloatNLandRouter from "./modules/plotNland/ploatNland.routes"
 import globalRateLimiter from "./middleware/rateLimiter";
 import ApartmentRouter from "./modules/apartment/apartment.routes";
 import NotificationRouter from "./modules/notification/notification.routes";
+import BrokerProfileRouter from "./modules/broker-profile/routes.broker-profile";
+import BuliderProfileRouter from "./modules/builder-profile/route.bulider-profile";
+import ConversationRouter from "./modules/conversation/conversation.route";
+import MessageRouter from "./modules/message/message.route";
+import SellerProfileRouter from "./modules/owner-profile/route.owner-profile";
+import PropertyInteractionRouter from "./modules/property-interaction/route.property-interaction";
+import WishlistRouter from "./modules/wishlist/wishlist.routes";
 
 const app = express();
 
@@ -35,6 +42,13 @@ app.use("/user", UserRouter);
 app.use('/plot-land', PloatNLandRouter)
 app.use('/apartment', ApartmentRouter)
 app.use("/notifications", NotificationRouter);
+app.use('/broker', BrokerProfileRouter)
+app.use('/builder', BuliderProfileRouter)
+app.use('/owner', SellerProfileRouter)
+app.use('/conversation', ConversationRouter)
+app.use('/message', MessageRouter)
+app.use('/property-interaction', PropertyInteractionRouter)
+app.use('/wishlist', WishlistRouter)
 
 app.get("/", (_req, res) => {
   res.status(200).json({

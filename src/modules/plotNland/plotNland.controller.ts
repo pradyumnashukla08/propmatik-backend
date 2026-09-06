@@ -4,6 +4,7 @@ import { createPlotNLandSchema } from "./plotNland.interface";
 import { PlotNLandModel } from "./plotNland.model";
 export const createPlotNland = async (req: Request, res: Response) => {
     try {
+        const userId = req.body.userId;
         // 1. Validate request body
         const validationResult = createPlotNLandSchema.safeParse(req.body);
 
@@ -29,6 +30,7 @@ export const createPlotNland = async (req: Request, res: Response) => {
             ...plotNlandData,
 
             // Explicit defaults
+            userId,
             status: "Draft",
             verificationStatus: "Pending",
         });

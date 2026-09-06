@@ -8,7 +8,7 @@ export interface IUser extends Document {
   memberType: "normal" | "premium";
   curentCity?: string;
   isVerified: boolean;
-  otp?: boolean;
+  otp?: number;
   otpExpiryTime?: Date;
   refreshTokenHash?: string | null;
   refreshTokenExpiryTime?: Date | null;

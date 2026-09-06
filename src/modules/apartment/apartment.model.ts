@@ -5,6 +5,12 @@ import { IApartment } from "./apartment.interface";
 
 const apartmentSchema = new Schema<IApartment>(
   {
+
+    userId:{
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     // STEP 1: BASIC DETAILS
 
     listingType: {

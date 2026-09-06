@@ -52,25 +52,106 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
+export const sentOtp = async (req: Request, res: Response) => {
+    try {
+        const { phone } = req.body;
 
-export const sentOtp = async(req: Request, res: Response) => {
-    try{
+        if (!phone) {
+            return res.status(400).json({
+                success: false,
+                message: "Phone number is required",
+            });
+        }
 
-    }
-    catch(error){
-        if(error instanceof Error) {
+        const genrateOtp = 1234;
+        const  otpExpiryTime = new Date(Date.now() + 15 * 60 * 1000); 
+
+        const user = await UserModel.findOne({ mobile: phone });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        //encrypt before save
+        user.otp = genrateOtp;
+        user.otpExpiryTime = otpExpiryTime;
+        await user.save();
+
+
+        return res.status(200).json({
+            success: true,
+            message: "OTP sent successfully"
+        });
+
+    } catch (error) {
+        if (error instanceof Error) {
             console.error("Error during OTP sending:", error);
+
             return res.status(500).json({
                 success: false,
                 message: "An error occurred during OTP sending",
             });
         }
+
+        return res.status(500).json({
+            success: false,
+            message: "Unknown error occurred during OTP sending",
+        });
     }
-} 
+};
 
 export const otpVerification = async (req: Request, res: Response) => {
     try{
+        const { phone, otp } = req.body;
 
+        if (!phone || !otp) {
+            return res.status(400).json({
+                success: false,
+                message: "Phone number and OTP are required",
+            });
+        }
+
+        const user = await UserModel.findOne({ mobile: phone });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        
+        }
+
+        if (user.otp !== otp) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid OTP",
+            });
+        }
+
+        if (!user.otpExpiryTime) {
+            return res.status(400).json({
+                success: false,
+                message: "OTP expiry time not found",
+            });
+        }
+
+        if (user?.otpExpiryTime < new Date()) {
+            return res.status(400).json({
+                success: false,
+                message: "OTP has expired",
+            });
+        }
+
+        user.isVerified = true;
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "OTP verification successful",
+        });
     }
     catch(error){
         if(error instanceof Error) {

@@ -2,10 +2,19 @@
 import { Request, Response } from "express";
 import { createApartmentSchema } from "./apartment.interface";
 import { ApartmentModel } from "./apartment.model";
+import { SessionInterface } from "../user/user.interface";
 
 // Create Apartment
-export const createApartment = async (req: Request, res: Response) => {
+export const createApartment = async (req: SessionInterface, res: Response) => {
   try {
+    const userId = req.body.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
     const validationResult = createApartmentSchema.safeParse(req.body);
 
     if (!validationResult.success) {
@@ -27,6 +36,7 @@ export const createApartment = async (req: Request, res: Response) => {
       ...apartmentData,
 
       // System controlled fields
+      userId: userId,
       status: "Draft",
       verificationStatus: "Pending",
     });
