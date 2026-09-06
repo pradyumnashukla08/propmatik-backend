@@ -9,7 +9,7 @@ const brokerProfileSchema = new Schema<IBrokerProfile>(
       required: true,
       unique: true,
     },
-
+    
     rera: {
       reraId: {
         type: String,

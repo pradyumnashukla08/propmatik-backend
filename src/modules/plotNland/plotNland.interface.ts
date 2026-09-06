@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import { Document } from "mongoose";
 
 export interface IPlotNLand extends Document {
+  userId: mongoose.Types.ObjectId;
   // Step 1: Basic Plot Details
   listingType: "Sale" | "Lease";
 

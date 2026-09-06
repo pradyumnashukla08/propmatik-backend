@@ -3,6 +3,12 @@ import { IPlotNLand } from "./plotNland.interface";
 
 const plotNLandSchema = new Schema<IPlotNLand>(
   {
+
+    userId:{
+          type: Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+    },
     // STEP 1: BASIC PLOT DETAILS
 
     listingType: {

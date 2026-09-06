@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { createPlotNland, deletePlotNland, editPlotNland, getAllPlotNland, getPlotNlandById, updatePlotNlandStatus } from './plotNland.controller';
+import authMiddleware from "../../middleware/auth.middleware";
 
 const PlotNLandRouter = Router();
+
+PlotNLandRouter.use(authMiddleware);
 
 PlotNLandRouter.post('/', createPlotNland);
 PlotNLandRouter.get('/', getAllPlotNland);

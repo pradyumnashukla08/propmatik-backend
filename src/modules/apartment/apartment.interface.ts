@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import { Document } from "mongoose";
 
 export interface IApartment extends Document {
+  userId: mongoose.Schema.Types.ObjectId;
   // Step 1: Basic Details
   listingType: "Sale" | "Rent";
   propertyType: "Apartment" | "Flat" | "Studio" | "Penthouse";
